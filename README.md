@@ -3,8 +3,7 @@
 <!-- badges: start -->
 [![Codecov test coverage](https://codecov.io/gh/ddsjoberg/rstudio.prefs/branch/main/graph/badge.svg)](https://codecov.io/gh/ddsjoberg/rstudio.prefs?branch=main)
 [![R-CMD-check](https://github.com/ddsjoberg/rstudio.prefs/workflows/R-CMD-check/badge.svg)](https://github.com/ddsjoberg/rstudio.prefs/actions)
-[![r-universe](https://ddsjoberg.r-universe.dev/badges/rstudio.prefs)](https://ddsjoberg.r-universe.dev/ui#builds)
-<!-- [![CRAN status](https://www.r-pkg.org/badges/version/rstudio.prefs)](https://CRAN.R-project.org/package=rstudio.prefs) -->
+[![CRAN status](https://www.r-pkg.org/badges/version/rstudio.prefs)](https://CRAN.R-project.org/package=rstudio.prefs)
 <!-- badges: end -->
 
 As of RStudio v1.3, the preferences in the Global Options dialog (and a number of other preferences that aren’t) are now saved in simple, plain-text JSON files.
@@ -13,7 +12,13 @@ This is particularly helpful when working on teams to ensure a **unified experie
 
 ## Installation
 
-You can install {rstudio.prefs} from [GitHub](https://github.com/ddsjoberg/rstudio.prefs) with:
+Install {rstudio.prefs} from CRAN with:
+
+``` r
+install.packages("rstudio.prefs")
+```
+
+Install the development version of {rstudio.prefs} from [GitHub](https://github.com/ddsjoberg/rstudio.prefs) with:
 
 ``` r
 # install.packages('devtools')
@@ -29,18 +34,21 @@ library(rstudio.prefs)
 
 use_rstudio_prefs(
   always_save_history = FALSE,
-  save_workspace = FALSE,
+  save_workspace = "never",
   load_workspace = FALSE,
   rainbow_parentheses = TRUE
-)save_workspace
+)
+#> √ Downloading list of available RStudio settings
+#>
+#> # UPDATES ==============================================
 #> - always_save_history   [TRUE   --> FALSE]
-#> - save_workspace        [TRUE   --> FALSE]
+#> - save_workspace        [ask    --> never]
 #> - load_workspace        [TRUE   --> FALSE]
 #> - rainbow_parentheses   [FALSE  --> TRUE ]
 #> 
 #> Would you like to continue? [y/n] y
-#> v File 'C:/Users/sjobergd/AppData/Roaming/RStudio/rstudio-prefs 2021-06-20.json' saved as backup.
-#> v File 'C:/Users/sjobergd/AppData/Roaming/RStudio/rstudio-prefs.json' updated.
+#> √ File 'C:/Users/sjobergd/AppData/Roaming/RStudio/rstudio-prefs 2021-06-20.json' saved as backup.
+#> √ File 'C:/Users/sjobergd/AppData/Roaming/RStudio/rstudio-prefs.json' updated.
 #> * Restart RStudio for updates to take effect.
 ```
 
@@ -52,12 +60,13 @@ use_rstudio_secondary_repo(
   ropensci = "https://ropensci.r-universe.dev",
   ddsjoberg = "https://ddsjoberg.r-universe.dev"
 )
+#> # UPDATES ==============================================
 #> - ropensci    [*  --> https://ropensci.r-universe.dev ]
 #> - ddsjoberg   [*  --> https://ddsjoberg.r-universe.dev]
 #> 
 #> Would you like to continue? [y/n] y
-#> v File 'C:/Users/sjobergd/AppData/Roaming/RStudio/rstudio-prefs 2021-06-20.json' saved as backup.
-#> v File 'C:/Users/sjobergd/AppData/Roaming/RStudio/rstudio-prefs.json' updated.
+#> √ File 'C:/Users/sjobergd/AppData/Roaming/RStudio/rstudio-prefs 2021-06-20.json' saved as backup.
+#> √ File 'C:/Users/sjobergd/AppData/Roaming/RStudio/rstudio-prefs.json' updated.
 #> * Restart RStudio for updates to take effect.
 ```
 
@@ -65,12 +74,13 @@ Use `use_rstudio_keyboard_shortcut()` to programmatically add keyboard shortcuts
 
 ```r
 use_rstudio_keyboard_shortcut(
-  "Ctrl+Shift+/" = "starter::make_path_norm"
+  "Ctrl+Shift+/" = "rstudio.prefs::make_path_norm"
 )
-#> - Ctrl+Shift+/   [*  --> starter::make_path_norm]
+#> # UPDATES ==============================================
+#> - Ctrl+Shift+/   [*  --> rstudio.prefs::make_path_norm]
 #> 
 #> Would you like to continue? [y/n] y
-#> v File 'C:/Users/sjobergd/AppData/Roaming/RStudio/keybindings/addins 2021-06-20.json' saved as backup.
-#> v File 'C:/Users/sjobergd/AppData/Roaming/RStudio/keybindings/addins.json' updated.
+#> √ File 'C:/Users/sjobergd/AppData/Roaming/RStudio/keybindings/addins 2021-06-20.json' saved as backup.
+#> √ File 'C:/Users/sjobergd/AppData/Roaming/RStudio/keybindings/addins.json' updated.
 #> * Restart RStudio for updates to take effect.
 ```
