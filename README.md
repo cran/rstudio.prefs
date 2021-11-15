@@ -1,7 +1,7 @@
 # rstudio.prefs
 
 <!-- badges: start -->
-[![Codecov test coverage](https://codecov.io/gh/ddsjoberg/rstudio.prefs/branch/main/graph/badge.svg)](https://codecov.io/gh/ddsjoberg/rstudio.prefs?branch=main)
+[![Codecov test coverage](https://codecov.io/gh/ddsjoberg/rstudio.prefs/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ddsjoberg/rstudio.prefs?branch=main)
 [![R-CMD-check](https://github.com/ddsjoberg/rstudio.prefs/workflows/R-CMD-check/badge.svg)](https://github.com/ddsjoberg/rstudio.prefs/actions)
 [![CRAN status](https://www.r-pkg.org/badges/version/rstudio.prefs)](https://CRAN.R-project.org/package=rstudio.prefs)
 <!-- badges: end -->
@@ -26,6 +26,8 @@ devtools::install_github("ddsjoberg/rstudio.prefs")
 ```
 ## Examples
 
+### Set RStudio Preferences
+
 Update the RStudio default preferences.
 Full list of modifiable settings here: https://docs.rstudio.com/ide/server-pro/session-user-settings.html
 
@@ -40,7 +42,7 @@ use_rstudio_prefs(
 )
 #> √ Downloading list of available RStudio settings
 #>
-#> # UPDATES ==============================================
+#> == Updates ==================================================
 #> - always_save_history   [TRUE   --> FALSE]
 #> - save_workspace        [ask    --> never]
 #> - load_workspace        [TRUE   --> FALSE]
@@ -51,6 +53,7 @@ use_rstudio_prefs(
 #> √ File 'C:/Users/sjobergd/AppData/Roaming/RStudio/rstudio-prefs.json' updated.
 #> * Restart RStudio for updates to take effect.
 ```
+### Add Secondary Repository
 
 Add secondary repositories to the **ROpenSci** and **ddsjoberg** R-Universes.
 This is also helpful for adding secondary RStudio Package Manager repositories.
@@ -60,7 +63,7 @@ use_rstudio_secondary_repo(
   ropensci = "https://ropensci.r-universe.dev",
   ddsjoberg = "https://ddsjoberg.r-universe.dev"
 )
-#> # UPDATES ==============================================
+#> == Updates ==================================================
 #> - ropensci    [*  --> https://ropensci.r-universe.dev ]
 #> - ddsjoberg   [*  --> https://ddsjoberg.r-universe.dev]
 #> 
@@ -70,13 +73,15 @@ use_rstudio_secondary_repo(
 #> * Restart RStudio for updates to take effect.
 ```
 
+### Add Keyboard Shortcut
+
 Use `use_rstudio_keyboard_shortcut()` to programmatically add keyboard shortcuts for add-ins.
 
 ```r
 use_rstudio_keyboard_shortcut(
   "Ctrl+Shift+/" = "rstudio.prefs::make_path_norm"
 )
-#> # UPDATES ==============================================
+#> == Updates ==================================================
 #> - Ctrl+Shift+/   [*  --> rstudio.prefs::make_path_norm]
 #> 
 #> Would you like to continue? [y/n] y
