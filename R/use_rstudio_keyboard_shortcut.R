@@ -6,10 +6,15 @@
 #' @param ... series of RStudio keyboard shortcuts to update. The argument
 #' name is the keyboard shortcut, and the value is a string of the function
 #' name that will execute. See examples.
-#' @inheritParams use_rstudio_prefs
+#' @param .write_json logical indicating whether to update and overwrite
+#' the existing JSON file of options. Default is `TRUE`. When `FALSE`,
+#' the function will return a list of all options, instead of writing
+#' them to file.
+#' @param .backup logical indicating whether to create a back-up of preferences
+#' file before it's updated. Default is `TRUE`
 #'
 #' @export
-#' @returns NULL, updates RStudio `addins.json` file
+#' @return NULL, updates RStudio `addins.json` file
 #' @author Daniel D. Sjoberg
 #'
 #' @examplesIf interactive()
@@ -91,7 +96,6 @@ use_rstudio_keyboard_shortcut <- function(..., .write_json = TRUE, .backup = TRU
 #' have been switched.
 #' @param x named list
 #'
-#' @return
 #' @keywords internal
 #' @noRd
 invert_list_names_and_values <- function(x) {

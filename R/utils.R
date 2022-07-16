@@ -4,7 +4,7 @@
 #'
 #' @param version string of min required version number
 #' @export
-#' @returns path string to RStudio `rstudio-prefs.json` file
+#' @return path string to RStudio `rstudio-prefs.json` file
 #' @author Daniel D. Sjoberg
 #'
 #' @examples
@@ -25,7 +25,7 @@ check_min_rstudio_version <- function(version) {
 #' @param ... strings added to the RStudio config path
 #'
 #' @export
-#' @returns path string to RStudio `rstudio-prefs.json` file
+#' @return path string to RStudio `rstudio-prefs.json` file
 #' @author Daniel D. Sjoberg
 #'
 #' @examples
@@ -37,7 +37,7 @@ rstudio_config_path <- function(...) {
     base <- rappdirs::user_config_dir("RStudio", appauthor = NULL)
   }
   else {
-    base <- rappdirs::user_config_dir("RStudio", os = "unix")
+    base <- rappdirs::user_config_dir("rstudio", os = "unix")
   }
   fs::path(base, ...)
 }
