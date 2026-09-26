@@ -1,6 +1,6 @@
 Package: rstudio.prefs
 Title: Manage 'RStudio' Preferences and Addin Shortcuts
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: c(
     person("S.A.", "van der Wulp", , "vdwulp@gmail.com", role = c("aut", "cre", "cph")),
     person("Daniel D.", "Sjoberg", , "danield.sjoberg@gmail.com", role = c("aut", "cph"),
@@ -25,13 +25,13 @@ Suggests: covr (>= 3.5.1), spelling (>= 2.2), testthat (>= 3.0.0),
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0
 Config/roxygen2/markdown: TRUE
 NeedsCompilation: no
-Packaged: 2026-08-19 14:14:18 UTC; wulps
+Packaged: 2026-09-26 12:54:17 UTC; wulps
 Author: S.A. van der Wulp [aut, cre, cph],
   Daniel D. Sjoberg [aut, cph] (ORCID:
     <https://orcid.org/0000-0003-0862-2018>)
 Maintainer: S.A. van der Wulp <vdwulp@gmail.com>
 Repository: CRAN
-Date/Publication: 2026-08-20 05:20:37 UTC
+Date/Publication: 2026-09-26 13:20:02 UTC

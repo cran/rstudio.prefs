@@ -15,10 +15,11 @@
 #' @param .backup logical indicating whether to create a back-up of shortcuts
 #' file before it's updated. Default is `TRUE`.
 #'
-#' @export
 #' @return When `.write_json = FALSE`, a named list of all shortcuts including
 #'   the updates. Otherwise `NULL` invisibly.
-#' @author Daniel D. Sjoberg
+#'
+#' @author Daniel D. Sjoberg (2021-2022)
+#' @author S.A. van der Wulp (since 2026)
 #'
 #' @examplesIf interactive()
 #' # Add a shortcut
@@ -30,7 +31,8 @@
 #' use_rstudio_keyboard_shortcut(
 #'   "Ctrl+Shift+/" = NULL
 #' )
-
+#'
+#' @export
 use_rstudio_keyboard_shortcut <- function(..., .write_json = TRUE, .backup = TRUE) {
   # check whether fn may be used -----------------------------------------------
   check_min_rstudio_version("1.3")
@@ -47,9 +49,6 @@ use_rstudio_keyboard_shortcut <- function(..., .write_json = TRUE, .backup = TRU
   check_shortcut_consistency(i_list_updated_shortcuts)
 
   # import existing addins -----------------------------------------------------
-  if (!fs::dir_exists(rstudio_config_path("keybindings"))) {
-    fs::dir_create(rstudio_config_path("keybindings"))
-  }
   list_current_shortcuts <-
     switch(fs::file_exists(rstudio_config_path("keybindings/addins.json")),
       jsonlite::fromJSON(rstudio_config_path("keybindings/addins.json"))
@@ -75,6 +74,16 @@ use_rstudio_keyboard_shortcut <- function(..., .write_json = TRUE, .backup = TRU
     c(i_list_updated_shortcuts, i_list_vacated_shortcuts)
   )
 
+  # merge new shortcuts, NULL values are removed by modifyList -----------------
+  list_final_shortcuts <-
+    utils::modifyList(i_list_remaining_shortcuts, i_list_updated_shortcuts) %>%
+    invert_list_names_and_values()
+
+  # if .write_json = FALSE, return shortcuts without writing -------------------
+  if (!isTRUE(.write_json)) {
+    return(list_final_shortcuts)
+  }
+
   # if no updates, abort function execution ------------------------------------
   if (!any_update) {
     return(invisible(NULL))
@@ -85,33 +94,14 @@ use_rstudio_keyboard_shortcut <- function(..., .write_json = TRUE, .backup = TRU
     return(invisible(NULL))
   }
 
-  # merge new shortcuts, NULL values are removed by modifyList -----------------
-  list_final_shortcuts <-
-    utils::modifyList(i_list_remaining_shortcuts, i_list_updated_shortcuts) %>%
-    invert_list_names_and_values()
-
   # convert to JSON and save file ----------------------------------------------
-  if (isTRUE(.write_json)) {
-    write_json(
-      list_final_shortcuts,
-      path = rstudio_config_path("keybindings/addins.json"),
-      .backup = .backup
-    )
+  write_json(
+    list_final_shortcuts,
+    path = rstudio_config_path("keybindings/addins.json"),
+    .backup = .backup
+  )
 
-    # adding other files to 'keybindings' folder if they do not exist ----------
-    c("keybindings/editor_bindings.json", "keybindings/rstudio_bindings.json") %>%
-      purrr::walk(
-        function(.x) {
-          if (!fs::file_exists(rstudio_config_path(.x))) {
-            write_json(NULL, path = rstudio_config_path(.x), .backup = FALSE)
-          }
-        }
-      )
-    return(invisible(NULL))
-  }
-  else {
-    return(list_final_shortcuts)
-  }
+  invisible(NULL)
 }
 
 #' Invert list names and values

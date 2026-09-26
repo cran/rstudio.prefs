@@ -1,6 +1,71 @@
+# rstudio.prefs 0.3.0
+
+### Enhancements
+
+* `use_rstudio_prefs()` now supports array preferences via a list of strings
+  ([#28](https://github.com/vdwulp/rstudio.prefs/issues/28)). For example:
+  `use_rstudio_prefs(busy_exclusion_list = list("tmux", "screen"))`. Character
+  vectors are also accepted for convenience.
+
+  Current array preferences:
+  - `always_shown_extensions`
+  - `always_shown_files`
+  - `browser_fixed_width_fonts`
+  - `busy_exclusion_list`
+  - `disabled_aria_live_announcements`
+  - `file_monitor_ignored_components`
+  - `spelling_custom_dictionaries`
+  - `terminal_ignored_environment_variables`
+  - `zotero_libraries`
+
+* `use_rstudio_prefs()` now validates string preferences when a fixed set of
+  allowed values is defined and warns on invalid values
+  ([#13](https://github.com/vdwulp/rstudio.prefs/issues/13)).
+
+* `use_rstudio_keyboard_shortcut(.write_json = FALSE)` now also returns the
+  current shortcuts when called without updates, and no longer asks for
+  confirmation ([#30](https://github.com/vdwulp/rstudio.prefs/issues/30)).
+
+### Fixes
+
+* `use_rstudio_prefs()` now prevents errors from
+  `rstudioapi::writeRStudioPreference()`, while continuing with other
+  preferences. Preferences with invalid types are skipped, numeric values are
+  converted to the correct type where applicable
+  ([#31](https://github.com/vdwulp/rstudio.prefs/issues/31)).
+
+* Replaced deprecated `purrr::update_list()` with base R `modifyList()` in
+  `use_rstudio_secondary_repo()`. This replacement also fixed removal of the old
+  repo name when its URL is reassigned to a new name, instead of leaving it as
+  an empty entry.
+
+* Fixed error when removing a non-existent secondary repo with
+  `use_rstudio_secondary_repo(repo_name = NULL)`.
+
+* Fixed error in `repo_string_as_named_list()` when the last repository URL
+  value is absent or empty.
+
+* `use_rstudio_keyboard_shortcut()` no longer creates the `keybindings`
+  directory when not needed, and no longer creates empty `editor_bindings.json`
+  and `rstudio_bindings.json` files
+  ([#30](https://github.com/vdwulp/rstudio.prefs/issues/30)).
+
+* Fixed documentation errors in `check_min_rstudio_version()`, and typos in
+  `backup_file()` and `is_windows()`.
+
+### Other
+
+* Reorganized source files to bundle related functions and better reflect their
+  contents.
+
+* Aligned test files to source files, and expanded test coverage.
+
+* Added package logo.
+
+
 # rstudio.prefs 0.2.0
 
-### New
+### Enhancements
 
 * `use_rstudio_keyboard_shortcut()` now supports shortcut removal by passing
   `NULL` as the value ([#22](https://github.com/vdwulp/rstudio.prefs/issues/22)).
@@ -35,6 +100,7 @@
 
 * Modernized package title, description, internal prefs data and GitHub Actions
   workflows. Increased testing coverage.
+
 
 # rstudio.prefs 0.1.9
 
